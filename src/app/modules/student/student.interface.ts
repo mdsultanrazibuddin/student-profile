@@ -1,5 +1,3 @@
-import { Schema, model, connect } from 'mongoose';
-
 
 // student's interface
 export type Guardian = {
