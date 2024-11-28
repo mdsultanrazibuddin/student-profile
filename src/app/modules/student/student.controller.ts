@@ -1,6 +1,7 @@
 import { Request, Response } from 'express';
 import { StudentServices } from './student.service';
 
+// create data
 const createStudent = async (req: Request, res: Response) => {
   try {
     const { student: studentData } = req.body;
@@ -17,6 +18,7 @@ const createStudent = async (req: Request, res: Response) => {
   }
 };
 
+// get all data
 const getAllStudent = async (req: Request, res: Response) => {
   try {
     const result = await StudentServices.getAllStudentFromDB();
@@ -30,6 +32,7 @@ const getAllStudent = async (req: Request, res: Response) => {
     console.log(err);
   }
 };
+// get single data
 const getSingleStudent = async (req: Request, res: Response) => {
   try {
     const { studentId } = req.params;
