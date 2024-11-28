@@ -65,6 +65,7 @@ const localGuardianSchema = new Schema <LocalGuardian> ({
     
 })
 const studentSchema = new Schema<Student>({
+    id:{ type: String,required: true },
     name: userNameSchema,
     gender:['male', 'female'],
     dateOfBirth:{ type: String},
