@@ -10,78 +10,104 @@ import {
 const userNameSchema = new Schema<UserName>({
   firstName: {
     type: String,
-    required: true,
+    required: [true,'FirstName is required'],
   },
   middleName: {
     type: String,
-    required: true,
+    required: [true,'MiddleName is required'],
   },
   lastName: {
     type: String,
-    required: true,
+    required: [true,'LastName is required'],
   },
 });
 
 const guardianSchema = new Schema<Guardian>({
   fatherName: {
     type: String,
-    required: true,
+    required: [true,'FatherName is required'],
   },
   fatherOccupation: {
     type: String,
-    required: true,
+    required: [true,'FatherOccupation is required'],
   },
   fatherContactNo: {
     type: String,
-    required: true,
+    required: [true,'FatherContactNo is required'],
   },
   motherName: {
     type: String,
-    required: true,
+    required: [true,'MotherName is required'],
   },
   motherOccupation: {
     type: String,
-    required: true,
+    required: [true,'MotherOccupation is required'],
   },
   motherContactNo: {
     type: String,
-    required: true,
+    required: [true,'MotherContactNo is required'],
   },
 });
 
 const localGuardianSchema = new Schema<LocalGuardian>({
   Name: {
     type: String,
-    required: true,
+    required: [true,'LocalGuardianName is required'],
   },
   Occupation: {
     type: String,
-    required: true,
+    required: [true,'LocalGuardianOccupation is required'],
   },
   ContactNo: {
     type: String,
-    required: true,
+    required: [true,'LocalGuardianContactNo is required'],
   },
   address: {
     type: String,
-    required: true,
+    required: [true,'LocalGuardianAddress is required'],
   },
 });
 const studentSchema = new Schema<Student>({
-  id: { type: String, required: true },
-  name: userNameSchema,
-  gender: ['male', 'female'],
+  id: { type: String, required: true , unique: true },
+  name:{
+    type: userNameSchema,
+    required:true
+  },
+  gender: {
+    type: String,
+    enum: {
+      values: ['male', 'female'],
+      message: '{VALUE} is not allow'
+    },
+    required: true
+  },
   dateOfBirth: { type: String },
-  email: { type: String, required: true },
-  contactNo: { type: String, required: true },
-  emergencyContactNo: { type: String, required: true },
-  bloodGroup: ['A+', 'A-', 'B+', 'B-', 'AB+', 'AB-', 'O+', 'O-'],
+  email: { type: String, required: true , unique:true},
+  contactNo: { type: String, required: true , unique:true},
+  emergencyContactNo: { type: String, required: true, unique:true },
+  bloodGroup: {
+    type: String,
+    enum: {
+      values: ['A+', 'A-', 'B+', 'B-', 'AB+', 'AB-', 'O+', 'O-'],
+      message: '{VALUE} is not allow',
+    },
+  },
   presentAddress: { type: String, required: true },
   permanentAddress: { type: String, required: true },
-  guardian: guardianSchema,
-  localGuardian: localGuardianSchema,
+  guardian:{
+    type:  guardianSchema,
+    required:true
+  },
+  localGuardian: {
+    type: localGuardianSchema,
+    required:true
+  },
   profileImage: { type: String },
-  isActive: ['active', 'blocked'],
+  isActive:{
+    type: String,
+    enum: ['active', 'blocked'],
+    default: "active",
+  } 
 });
 
 // 3. Create a Model.
